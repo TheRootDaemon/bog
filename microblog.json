@@ -1,0 +1,14 @@
+{
+    "Users": [ "create_users", "follow_user", "unfollow_user" ],
+    "Auth": [ "token": "Login access tokens" ],
+    "Posts": [
+        "create_post",
+        "delele_post",
+        "update_post",
+        "repost",
+        "undo_repost",
+        "read_post": "reading posts with counts",
+        "like_post",
+        "unlike_post",
+    ]
+}
