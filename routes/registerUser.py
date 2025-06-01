@@ -1,15 +1,17 @@
-from fastapi import APIRouter, Body, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
+from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
-from ..auth import generateHash
 from ..database import get_db
 from ..models import User
-from ..schemas import userMetadata
+from ..schemas import registrationResponse, userMetadata
 
 router = APIRouter(
     prefix="/users",
     tags=["Registration"],
 )
+
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 @router.post(
@@ -17,6 +19,7 @@ router = APIRouter(
     status_code=status.HTTP_201_CREATED,
     summary="Creates, registers a user",
     description="Creates a User in the datase with necessary hashing",
+    response_model=registrationResponse,
 )
 def createUser(
     user: userMetadata,
@@ -35,12 +38,10 @@ def createUser(
         username=user.username,
         email=user.email,
         gender=user.gender,
-        password=generateHash(user.password),
+        password=pwd_context.hash(user.password),
     )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
 
-    return {
-        "message": "User Created successfully",
-    }
+    return new_user
