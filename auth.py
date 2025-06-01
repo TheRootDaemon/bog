@@ -1,14 +1,25 @@
 from datetime import datetime, timedelta
+
 from jose import JWTError, jwt
+from passlib.context import CryptContext
 
-secretKey = "I love salted peanuts very much"
-algorithm = "HS256"
-expiration = 60
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+
+SECRET_KEY = "I love salted peanuts very much"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 
-def generateToken(data: dict, expires_delta: timedelta = None):
+def generateHash(password: str) -> str:
+    return pwd_context.hash(password)
+
+
+def verifyHash(password: str, hash: str) -> bool:
+    return pwd_context.verify(password, hash)
+
+
+def create_access_token(data: dict):
     to_encode = data.copy()
-    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=expiration))
+    expire = datetime.utcnow() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
-    encoded_jwt = jwt.encode(to_encode, secretKey, algorithm=algorithm)
-    return encoded_jwt
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)

@@ -1,15 +1,14 @@
 from fastapi import APIRouter, Body, Depends, HTTPException, status
-from passlib.context import CryptContext
 from sqlalchemy.orm import Session
 
+from ..auth import generateHash
 from ..database import get_db
 from ..models import User
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+from ..schemas import userMetadata
 
 router = APIRouter(
     prefix="/users",
-    tags=["Users_Test"],
+    tags=["Registration"],
 )
 
 
@@ -20,25 +19,28 @@ router = APIRouter(
     description="Creates a User in the datase with necessary hashing",
 )
 def createUser(
-    username: str = Body(..., enbed=True),
-    password: str = Body(..., embed=True),
+    user: userMetadata,
     db: Session = Depends(get_db),
 ):
-    existingUsers = db.query(User.username).filter(User.username == username).first()
+    existingUsers = (
+        db.query(User.username).filter(User.username == user.username).first()
+    )
     if existingUsers:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="User already exists",
         )
 
-    new_user = User(username=username, password=pwd_context.hash(password))
+    new_user = User(
+        username=user.username,
+        email=user.email,
+        gender=user.gender,
+        password=generateHash(user.password),
+    )
     db.add(new_user)
     db.commit()
     db.refresh(new_user)
 
     return {
         "message": "User Created successfully",
-        "id": new_user.id,
-        "username": new_user.username,
-        "stored_password": new_user.password,
     }
