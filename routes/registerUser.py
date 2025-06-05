@@ -8,7 +8,7 @@ from ..schemas import registrationResponse, userMetadata
 
 router = APIRouter(
     prefix="/users",
-    tags=["Registration"],
+    tags=["Users"],
 )
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")

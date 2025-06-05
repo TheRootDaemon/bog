@@ -1,6 +1,14 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy.orm import relationship
 
 from .database import Base
+
+follow = Table(
+    "follow",
+    Base.metadata,
+    Column("follower", Integer, ForeignKey("Users.id"), primary_key=True),
+    Column("followee", Integer, ForeignKey("Users.id"), primary_key=True),
+)
 
 
 class User(Base):
@@ -11,3 +19,10 @@ class User(Base):
     email = Column(String, nullable=False)
     gender = Column(String)
     password = Column(String, nullable=False)
+
+    followers = relationship(
+        "User",
+        secondary=follow,
+        primaryjoin=id == follow.c.followee,
+        secondaryjoin=id == follow.c.follower,
+    )
