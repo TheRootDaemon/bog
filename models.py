@@ -26,3 +26,10 @@ class User(Base):
         primaryjoin=id == follow.c.followee,
         secondaryjoin=id == follow.c.follower,
     )
+
+    following = relationship(
+        "User",
+        secondary=follow,
+        primaryjoin=id == follow.c.follower,
+        secondaryjoin=id == follow.c.followee,
+    )
