@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
+from starlette.status import HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN
 
 from ..database import get_db
 from ..models import Post, User
@@ -12,7 +13,12 @@ router = APIRouter(
 )
 
 
-@router.post("createPost", response_model=postResponse)
+@router.post(
+    "createPost",
+    summary="Creates a post",
+    description="Creates a post for the current user",
+    response_model=postResponse,
+)
 def createPost(
     postData: postMetadata,
     db: Session = Depends(get_db),
@@ -27,7 +33,43 @@ def createPost(
     return post
 
 
-@router.delete("deletePost/{post_id}")
+@router.put(
+    "updatePost",
+    summary="Updates a post",
+    description="Updates a post for the current user",
+    response_model=postResponse,
+)
+def updatePost(
+    post_id: int,
+    postData: postMetadata,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+):
+    post = db.query(Post).filter(Post.id == post_id).first()
+
+    if not post:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="Post not found")
+
+    if post.author != current_user.id:  # type:ignore
+        raise HTTPException(
+            status_code=HTTP_403_FORBIDDEN,
+            detail="You are not authorised to delete this post",
+        )
+
+    post.title = postData.title  # type:ignore
+    post.content = postData.conten  # type:ignore
+
+    db.commit()
+    db.refresh(post)
+
+    return post
+
+
+@router.delete(
+    "deletePost/{post_id}",
+    summary="Deletes a post",
+    description="Deletes a post for the current user",
+)
 def deletePost(
     post_id: int,
     db: Session = Depends(get_db),

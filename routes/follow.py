@@ -11,7 +11,7 @@ router = APIRouter(
 )
 
 
-@router.post("/follow/{user_id}")
+@router.post("/follow/{user_id}", summary="Follows a User")
 def follow(
     user_id: int,
     current_user: User = Depends(get_current_user),
@@ -45,7 +45,7 @@ def follow(
     }
 
 
-@router.delete("/unfollow/{user_id}")
+@router.delete("/unfollow/{user_id}", summary="Unfollows a user")
 def unfollow(
     user_id: int,
     current_user: User = Depends(get_current_user),

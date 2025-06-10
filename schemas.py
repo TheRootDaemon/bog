@@ -24,6 +24,9 @@ class postMetadata(BaseModel):
     title: str
     content: str
 
+    class Config:
+        orm_mode = True
+
 
 class postResponse(BaseModel):
     id: int

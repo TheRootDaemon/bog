@@ -13,6 +13,6 @@ app.include_router(follow.router)
 app.include_router(posts.router)
 
 
-@app.get("/")
+@app.get("/", summary="Returns the authenticated user")
 def user(user: dict = Depends(get_current_user)):
     return {"message": "You are authorised", "user": user}

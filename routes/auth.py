@@ -24,7 +24,9 @@ ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60
 
 
-@router.post("/token", response_model=Token)
+@router.post(
+    "/token", response_model=Token, summary="Generates a JWT Token for the User"
+)
 async def login_for_access_token(
     form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ):
