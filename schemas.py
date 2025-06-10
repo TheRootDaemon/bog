@@ -18,3 +18,18 @@ class registrationResponse(BaseModel):
 class Token(BaseModel):
     access_token: str
     token_type: str
+
+
+class postMetadata(BaseModel):
+    title: str
+    content: str
+
+
+class postResponse(BaseModel):
+    id: int
+    author: int
+    title: str
+    content: str
+
+    class Config:
+        orm_mode = True

@@ -1,4 +1,4 @@
-from sqlalchemy import Column, ForeignKey, Integer, String, Table
+from sqlalchemy import Column, ForeignKey, Integer, String, Table, Text
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -33,3 +33,16 @@ class User(Base):
         primaryjoin=id == follow.c.follower,
         secondaryjoin=id == follow.c.followee,
     )
+
+    posts = relationship("Post", back_populates="users")
+
+
+class Post(Base):
+    __tablename__ = "Posts"
+
+    id = Column(Integer, primary_key=True, index=True)
+    author = Column(Integer, ForeignKey("Users.id"))
+    title = Column(Text, nullable=False)
+    content = Column(Text)
+
+    users = relationship("User", back_populates="posts")
