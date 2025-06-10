@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 
 from .database import Base, engine
-from .routes import auth, createPost, follow, registerUser
+from .routes import auth, follow, posts, registerUser
 from .routes.auth import get_current_user
 
 app = FastAPI()
@@ -10,7 +10,7 @@ Base.metadata.create_all(bind=engine)
 app.include_router(registerUser.router)
 app.include_router(auth.router)
 app.include_router(follow.router)
-app.include_router(createPost.router)
+app.include_router(posts.router)
 
 
 @app.get("/")

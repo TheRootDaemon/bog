@@ -45,7 +45,7 @@ def follow(
     }
 
 
-@router.post("/unfollow/{user_id}")
+@router.delete("/unfollow/{user_id}")
 def unfollow(
     user_id: int,
     current_user: User = Depends(get_current_user),
