@@ -34,7 +34,7 @@ def createPost(
 
 
 @router.put(
-    "updatePost",
+    "updatePost/{post_id}",
     summary="Updates a post",
     description="Updates a post for the current user",
     response_model=postResponse,
