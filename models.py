@@ -10,6 +10,13 @@ follow = Table(
     Column("followee", Integer, ForeignKey("Users.id"), primary_key=True),
 )
 
+likes = Table(
+    "likes",
+    Base.metadata,
+    Column("likedBy", Integer, ForeignKey("Users.id"), primary_key=True),
+    Column("likedPost", Integer, ForeignKey("Posts.id"), primary_key=True),
+)
+
 
 class User(Base):
     __tablename__ = "Users"
@@ -30,6 +37,8 @@ class User(Base):
 
     posts = relationship("Post", back_populates="users")
 
+    likedPosts = relationship("Post", secondary=likes, back_populates="liked")
+
 
 class Post(Base):
     __tablename__ = "Posts"
@@ -40,3 +49,5 @@ class Post(Base):
     content = Column(Text)
 
     users = relationship("User", back_populates="posts")
+
+    liked = relationship("User", secondary=likes, back_populates="likedPosts")
