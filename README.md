@@ -1,4 +1,4 @@
-# Bog - REST API for a micro-blogging site
+# Bog - FastAPI for a micro-blogging site
 
 ## What is Bog?
 Bog is a straightforward FastAPI backend for a micro bloggin site. It lets users register, post content, follow others, like posts, and view feeds, with secure JWT authentication.
