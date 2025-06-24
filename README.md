@@ -3,6 +3,8 @@
 ## What is Bog?
 Bog is a straightforward FastAPI backend for a micro bloggin site. It lets users register, post content, follow others, like posts, and view feeds, with secure JWT authentication.
 
+I might Dockerize it soon
+
 ## Quick Setup
 
 1. **Clone the Repo**
@@ -63,5 +65,3 @@ Get a token:
 ```bash
 curl -X POST "http://localhost:8000/auth/token" -H "Content-Type: application/x-www-form-urlencoded" -d "username=testuser&password=password123"
 ```
-
-I might Dockerize it soon....
