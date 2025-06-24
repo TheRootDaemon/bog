@@ -1,4 +1,5 @@
 from pydantic import BaseModel, EmailStr
+from sqlalchemy.sql.functions import user
 
 
 class userMetadata(BaseModel):
@@ -33,6 +34,15 @@ class postResponse(BaseModel):
     author: int
     title: str
     content: str
+
+    class Config:
+        orm_mode = True
+
+
+class userSummary(BaseModel):
+    username: str
+    gender: str
+    followersCount: int
 
     class Config:
         orm_mode = True
