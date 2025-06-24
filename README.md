@@ -19,7 +19,7 @@ Bog is a straightforward FastAPI backend for a social media app. It lets users r
 
 3. **Install Dependencies**
    ```bash
-   pip install fastapi uvicorn python-jose pydantic
+   pip install -r requirements.txt
    ```
 
 4. **Run the App**
@@ -64,13 +64,4 @@ Get a token:
 curl -X POST "http://localhost:8000/auth/token" -H "Content-Type: application/x-www-form-urlencoded" -d "username=testuser&password=password123"
 ```
 
-## Contributing
-
-1. Fork the repo.
-2. Create a branch (`git checkout -b my-feature`).
-3. Commit changes (`git commit -m "Add feature"`).
-4. Push (`git push origin my-feature`).
-5. Open a pull request.
-
-## License
-MIT License - see [LICENSE.md](LICENSE.md).
+I might Dockerize it soon....
