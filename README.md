@@ -1,7 +1,7 @@
 # Bog - Simple FastAPI Social Media Backend
 
 ## What is Bog?
-Bog is a straightforward FastAPI backend for a social media app. It lets users register, post content, follow others, like posts, and view feeds, with secure JWT authentication.
+Bog is a straightforward FastAPI backend for a micro bloggin site. It lets users register, post content, follow others, like posts, and view feeds, with secure JWT authentication.
 
 ## Quick Setup
 
