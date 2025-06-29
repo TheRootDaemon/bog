@@ -24,6 +24,7 @@ def getUsers(db: Session = Depends(get_db)):
     users = db.query(User).order_by(func.random()).limit(5).all()
     result = [
         userSummary(
+            id=user.id,  # type:ignore
             username=user.username,  # type:ignore
             gender=user.gender,  # type:ignore
             followersCount=len(user.followers),

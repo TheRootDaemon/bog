@@ -40,6 +40,7 @@ class postResponse(BaseModel):
 
 
 class userSummary(BaseModel):
+    id: int
     username: str
     gender: str
     followersCount: int
