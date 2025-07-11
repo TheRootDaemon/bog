@@ -1,3 +1,16 @@
+"""
+users.py
+
+This module provides endpoints for user interactions such as following and unfollowing other users.
+
+Routes:
+- POST /users/follow/{user_id} — Follow a user
+- DELETE /users/unfollow/{user_id} — Unfollow a user
+
+Authentication:
+- Both routes require a valid JWT token to identify the current user.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
@@ -17,6 +30,22 @@ def follow(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    """
+    Allows the current user to follow another user by user_id.
+
+    Args:
+        user_id (int): ID of the user to follow.
+        current_user (User): The authenticated user performing the follow.
+        db (Session): SQLAlchemy database session.
+
+    Returns:
+        dict: Message indicating success and updated follower/following counts.
+
+    Raises:
+        HTTPException: 
+            - 404 if the target user doesn't exist.
+            - 400 if the user tries to follow themselves or already follows the user.
+    """
     user_to_follow = db.query(User).filter(User.id == user_id).first()
 
     if not user_to_follow:
@@ -51,6 +80,22 @@ def unfollow(
     current_user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
 ):
+    """
+    Allows the current user to unfollow another user by user_id.
+
+    Args:
+        user_id (int): ID of the user to unfollow.
+        current_user (User): The authenticated user performing the unfollow.
+        db (Session): SQLAlchemy database session.
+
+    Returns:
+        dict: Message indicating success and updated follower/following counts.
+
+    Raises:
+        HTTPException: 
+            - 404 if the target user doesn't exist.
+            - 400 if the user tries to unfollow themselves or someone they don’t follow.
+    """
     user_to_unfollow = db.query(User).filter(User.id == user_id).first()
 
     if not user_to_unfollow:

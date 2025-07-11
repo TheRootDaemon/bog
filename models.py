@@ -1,4 +1,17 @@
-from sqlalchemy import (Column, DateTime, ForeignKey, Integer, String, Table,
+"""
+models.py
+
+This module defines the SQLAlchemy ORM models for a simple social media-like platform.
+It includes users, posts, and many-to-many relationship tables for followers and likes.
+
+Tables:
+- Users
+- Posts
+- follow (association table for followers)
+- likes (association table for post likes)
+"""
+
+from sqlalchemy import (Column, ForeignKey, Integer, String, Table,
                         Text)
 from sqlalchemy.orm import relationship
 
@@ -20,6 +33,20 @@ likes = Table(
 
 
 class User(Base):
+    """
+    ORM model representing a user in the system.
+
+    Attributes:
+        id (int): Primary key.
+        username (str): Unique username.
+        email (str): Email address of the user.
+        gender (str): Gender of the user.
+        password (str): Hashed password.
+        followers (List[User]): Users who follow this user.
+        following (List[User]): Users this user is following.
+        posts (List[Post]): Posts authored by the user.
+        likedPosts (List[Post]): Posts liked by the user.
+    """
     __tablename__ = "Users"
 
     id = Column(Integer, primary_key=True, index=True)
@@ -42,6 +69,17 @@ class User(Base):
 
 
 class Post(Base):
+    """
+    ORM model representing a post in the system.
+
+    Attributes:
+        id (int): Primary key.
+        author (int): ID of the user who authored the post.
+        title (str): Title of the post.
+        content (str): Content body of the post.
+        users (User): Author of the post.
+        liked (List[User]): Users who liked the post.
+    """
     __tablename__ = "Posts"
 
     id = Column(Integer, primary_key=True, index=True)

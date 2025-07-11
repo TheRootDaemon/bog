@@ -1,6 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from starlette.status import HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN
 
 from ..database import get_db
 from ..models import Post, User
@@ -48,11 +47,11 @@ def updatePost(
     post = db.query(Post).filter(Post.id == post_id).first()
 
     if not post:
-        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="Post not found")
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Post not found")
 
     if post.author != current_user.id:  # type:ignore
         raise HTTPException(
-            status_code=HTTP_403_FORBIDDEN,
+            status_code=status.HTTP_403_FORBIDDEN,
             detail="You are not authorised to delete this post",
         )
 

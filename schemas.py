@@ -1,5 +1,12 @@
+"""
+schemas.py
+
+This module defines Pydantic models for request and response validation
+in the API. These models enforce data structure and type validation
+for operations related to users, authentication, and posts.
+"""
+
 from pydantic import BaseModel, EmailStr
-from sqlalchemy.sql.functions import user
 
 
 class userMetadata(BaseModel):

@@ -1,3 +1,16 @@
+"""
+users.py (User Registration)
+
+This module provides user-related endpoints including registration.
+
+Routes:
+- POST /users/registerUser — Register a new user
+
+Details:
+- Uses bcrypt for password hashing.
+- Ensures unique usernames before creating a user.
+"""
+
 from fastapi import APIRouter, Depends, HTTPException, status
 from passlib.context import CryptContext
 from sqlalchemy.orm import Session
@@ -25,6 +38,20 @@ def createUser(
     user: userMetadata,
     db: Session = Depends(get_db),
 ):
+    """
+    Registers a new user in the system.
+
+    Args:
+        user (userMetadata): Pydantic model containing username, email, gender, and password.
+        db (Session): SQLAlchemy database session.
+
+    Returns:
+        registrationResponse: Contains the registered user's public information.
+
+    Raises:
+        HTTPException: 
+            - 400 if a user with the given username already exists.
+    """
     existingUsers = (
         db.query(User.username).filter(User.username == user.username).first()
     )
