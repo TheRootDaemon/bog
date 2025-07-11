@@ -23,7 +23,7 @@ router = APIRouter(
 
 
 @router.post(
-    "createPost",
+    "/createPost",
     summary="Creates a post",
     description="Creates a post for the current user",
     response_model=postResponse,
@@ -54,7 +54,7 @@ def createPost(
 
 
 @router.put(
-    "updatePost/{post_id}",
+    "/updatePost/{post_id}",
     summary="Updates a post",
     description="Updates a post for the current user",
     response_model=postResponse,
@@ -105,7 +105,7 @@ def updatePost(
 
 
 @router.delete(
-    "deletePost/{post_id}",
+    "/deletePost/{post_id}",
     summary="Deletes a post",
     description="Deletes a post for the current user",
 )
@@ -150,7 +150,7 @@ def deletePost(
 
 
 @router.post(
-    "likePost/{post_id}",
+    "/likePost/{post_id}",
     summary="Likes a post",
 )
 def likePost(
@@ -195,7 +195,7 @@ def likePost(
 
 
 @router.delete(
-    "unlikePost/{post_id}",
+    "/unlikePost/{post_id}",
     summary="Unlikes a post",
 )
 def unlikePost(

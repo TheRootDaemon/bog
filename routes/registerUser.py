@@ -28,7 +28,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 @router.post(
-    "/registerUser",
+    "/register",
     status_code=status.HTTP_201_CREATED,
     summary="Creates, registers a user",
     description="Creates a User in the datase with necessary hashing",
@@ -49,7 +49,7 @@ def createUser(
         registrationResponse: Contains the registered user's public information.
 
     Raises:
-        HTTPException: 
+        HTTPException:
             - 400 if a user with the given username already exists.
     """
     existingUsers = (
