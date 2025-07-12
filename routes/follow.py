@@ -4,8 +4,8 @@ users.py
 This module provides endpoints for user interactions such as following and unfollowing other users.
 
 Routes:
-- POST /users/follow/{user_id} — Follow a user
-- DELETE /users/unfollow/{user_id} — Unfollow a user
+- POST /users/{user_id}/follow — Follow a user
+- DELETE /users/{user_id}/unfollow — Unfollow a user
 
 Authentication:
 - Both routes require a valid JWT token to identify the current user.
@@ -24,7 +24,7 @@ router = APIRouter(
 )
 
 
-@router.post("/follow/{user_id}", summary="Follows a User")
+@router.post("/{user_id}/follow", summary="Follows a User")
 def follow(
     user_id: int,
     current_user: User = Depends(get_current_user),
@@ -42,7 +42,7 @@ def follow(
         dict: Message indicating success and updated follower/following counts.
 
     Raises:
-        HTTPException: 
+        HTTPException:
             - 404 if the target user doesn't exist.
             - 400 if the user tries to follow themselves or already follows the user.
     """
@@ -74,7 +74,7 @@ def follow(
     }
 
 
-@router.delete("/unfollow/{user_id}", summary="Unfollows a user")
+@router.delete("/{user_id}/unfollow", summary="Unfollows a user")
 def unfollow(
     user_id: int,
     current_user: User = Depends(get_current_user),
@@ -92,7 +92,7 @@ def unfollow(
         dict: Message indicating success and updated follower/following counts.
 
     Raises:
-        HTTPException: 
+        HTTPException:
             - 404 if the target user doesn't exist.
             - 400 if the user tries to unfollow themselves or someone they don’t follow.
     """

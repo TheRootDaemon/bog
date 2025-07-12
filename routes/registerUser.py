@@ -4,7 +4,7 @@ users.py (User Registration)
 This module provides user-related endpoints including registration.
 
 Routes:
-- POST /users/registerUser — Register a new user
+- POST /users — Register a new user
 
 Details:
 - Uses bcrypt for password hashing.
@@ -28,7 +28,7 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 @router.post(
-    "/register",
+    "",
     status_code=status.HTTP_201_CREATED,
     summary="Creates, registers a user",
     description="Creates a User in the datase with necessary hashing",

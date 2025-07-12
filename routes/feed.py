@@ -5,8 +5,8 @@ This module provides feed-related endpoints for the application,
 including fetching random users and retrieving posts for a specific user.
 
 Endpoints:
-- GET /feed/getUsers: Returns a list of random users for the feed.
-- GET /feed/getPosts/{username}: Returns all posts made by a given user.
+- GET /feed/users: Returns a list of random users for the feed.
+- GET /feed/users/{username}/posts: Returns all posts made by a given user.
 """
 
 from typing import List
@@ -26,7 +26,7 @@ router = APIRouter(
 
 
 @router.get(
-    "/getUsers",
+    "",
     summary="Fetches users for the Feed",
     description="Fetches random users for the sake of the feed",
     response_model=List[userSummary],
@@ -56,7 +56,7 @@ def getUsers(db: Session = Depends(get_db)):
 
 
 @router.get(
-    "/getPosts/{username}",
+    "/{username}",
     summary="Fetches posts of a certain user",
 )
 def getPosts(username: str, db: Session = Depends(get_db)):
