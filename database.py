@@ -14,7 +14,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import declarative_base, sessionmaker
 
 Base = declarative_base()
-engine = create_engine("sqlite:///blog.db", connect_args={"check_same_thread": False})
+DATABASE_URL = "postgresql://bog:bog@localhost:5432/bog"
+engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 
