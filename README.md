@@ -9,7 +9,8 @@
 
 **A modern, secure micro-blogging API built with FastAPI**
 
-🚀 [The API is LIVE here !](https://bog-d62w.onrender.com/docs) • 📖 [Here's the Swagger Documentations by the way.](https://bog-d62w.onrender.com/docs)
+🚀 [The API is LIVE here, you are more than welcome to test it out](https://bog-d62w.onrender.com/docs)
+📖 [Here's the Swagger Documentations by the way.](https://bog-d62w.onrender.com/docs)
 
 </div>
 
