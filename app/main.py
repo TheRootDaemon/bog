@@ -36,7 +36,7 @@ def default():
     Returns:
         dict: A status message confirming the API is active.
     """
-    return {"message": "The API is UP and running ..."}
+    return {"message": "The bog is active"}
 
 
 @app.get("/user", summary="Returns the authenticated user", tags=["Root"])

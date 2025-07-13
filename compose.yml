@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  fastapi:
+    build: .
+    container_name: bog
+    ports:
+      - "10000:10000"
+    restart: unless-stopped
+    environment:
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - .:/app
