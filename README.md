@@ -304,16 +304,6 @@ The application uses SQLite by default with the database file `blog.db`. The dat
    - Use a production ASGI server like Gunicorn with Uvicorn workers
    - Set up proper logging
 
-### Deploy to Cloud Platforms
-
-The application is containerized and can be deployed to:
-- **Render** (current deployment)
-- **Heroku**
-- **Railway**
-- **Google Cloud Run**
-- **AWS ECS**
-- **DigitalOcean App Platform**
-
 ## 🤝 Contributing
 
 1. Fork the repository
@@ -321,10 +311,6 @@ The application is containerized and can be deployed to:
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-## 📝 License
-
-This project is open source and available under the [MIT License](LICENSE).
 
 ## 🔗 Links
 
